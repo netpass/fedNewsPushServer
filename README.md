@@ -11,16 +11,16 @@ see [egg docs][egg] for more detail.
 ### Development
 
 ```bash
-$ npm i
-$ npm run dev
+$ yarn
+$ yarn dev
 $ open http://localhost:7001/
 ```
 
 ### Deploy
 
 ```bash
-$ npm start
-$ npm stop
+$ yarn start
+$ yarn stop
 ```
 
 ### npm scripts
