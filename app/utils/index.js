@@ -15,11 +15,21 @@ const limitText = (text = '', limitCount = 120) => {
 };
 
 const deepClone = (data) => {
-  return JSON.parse(JSON.stringify(data))
-}
+  return JSON.parse(JSON.stringify(data));
+};
+
+const jsonParse = (value) => {
+  if (!value) return null;
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return value;
+  }
+};
 
 module.exports = {
   formatQuery,
   limitText,
   deepClone,
+  jsonParse,
 };

@@ -24,10 +24,16 @@ class HomeService extends Service {
 
       ctx.status = result.status;
       // 正常工作日 0, 法定节假日 1, 节假日调休补班 2，休息日 3
-      return result.data.data !== 0;
+      return {
+        success: true,
+        data: result.data.data !== 0,
+      };
     } catch (error) {
       console.warn(error);
-      return error;
+      return {
+        success: false,
+        error,
+      };
     }
   }
 
@@ -78,10 +84,15 @@ class HomeService extends Service {
       });
 
       ctx.status = result.status;
-      return feedCardList;
+      return {
+        success: true,
+        data: feedCardList,
+      };
     } catch (error) {
-      console.warn(error);
-      return error;
+      return {
+        success: false,
+        error,
+      };
     }
   }
 
@@ -131,10 +142,15 @@ class HomeService extends Service {
       });
 
       ctx.status = result.status;
-      return feedCardList.filter(item => item);
+      return {
+        success: true,
+        data: feedCardList.filter(item => item),
+      };
     } catch (error) {
-      console.warn(error);
-      return error;
+      return {
+        success: false,
+        error,
+      };
     }
   }
 }

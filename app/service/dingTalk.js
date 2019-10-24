@@ -1,27 +1,42 @@
+/* eslint-disable jsdoc/require-param */
 'use strict';
 
 const Service = require('egg').Service;
-const { dingTalkConf } = require('../config');
-const { dingtalkUrl } = dingTalkConf;
 
 class DingTalkService extends Service {
   /**
    * 通用钉钉消息接口
    * @param {*} data 任意钉钉格式
    */
-  async send(data = {}) {
+  async send(data = {}, url) {
     const { ctx } = this;
     try {
-      const result = await ctx.curl(dingtalkUrl, {
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'json',
-        data,
+
+      let dingTalkUrls = '';
+      if (!url) {
+        const dingTalkConf = await ctx.service.config.fetchConfigByName('dingTalkConf');
+
+        if (!dingTalkConf) throw 'dingTalkConf配置丢失，请检查';
+        dingTalkUrls = dingTalkConf.dingTalkUrls;
+      } else {
+        dingTalkUrls = [ url ];
+      }
+
+
+      const tasks = dingTalkUrls.map(async (src) => {
+        return await ctx.curl(src, {
+          method: 'POST',
+          dataType: 'json',
+          contentType: 'json',
+          data,
+        });
       });
-      ctx.status = result.status;
+
+      await Promise.all(tasks);
+
       ctx.body = {
         success: true,
-        data: result.data,
+        data: '发送成功',
       };
     } catch (error) {
       ctx.body = {
@@ -35,7 +50,7 @@ class DingTalkService extends Service {
    * 钉钉文本推送
    */
   async text(data = {}) {
-    const { text, isAtAll, mobile = '15057594294' } = data;
+    const { text, isAtAll, mobile = '15057594294', url } = data;
 
     const body = {
       msgtype: 'text',
@@ -48,26 +63,27 @@ class DingTalkService extends Service {
       },
     };
 
-    await this.send(body);
+    await this.send(body, url);
   }
 
   /**
    * 钉钉链接推送
    */
   async link(data = {}) {
+    const { url, ...other } = data || {};
     const body = {
       msgtype: 'link',
-      link: data,
+      link: other,
     };
 
-    await this.send(body);
+    await this.send(body, url);
   }
 
   /**
    * 钉钉markdown推送
    */
   async markdown(data = {}) {
-    const { title, text, isAtAll, mobile = '15057594294' } = data;
+    const { title, text, isAtAll, mobile = '15057594294', url } = data;
 
     const body = {
       msgtype: 'markdown',
@@ -81,33 +97,35 @@ class DingTalkService extends Service {
       },
     };
 
-    await this.send(body);
+    await this.send(body, url);
   }
 
   /**
    * 钉钉actionCard推送
    */
-  async actionCard(data = {}) {
+  async actionCard(data) {
+    const { url, ...other } = data || {};
     const body = {
       msgtype: 'actionCard',
-      actionCard: data,
+      actionCard: other,
     };
 
-    await this.send(body);
+    await this.send(body, url);
   }
 
   /**
  * 钉钉feedCard推送
  */
-  async feedCard(data = {}) {
+  async feedCard(data) {
+    const { url, ...other } = data || {};
     const body = {
       msgtype: 'feedCard',
       feedCard: {
-        links: data,
+        links: other,
       },
     };
 
-    await this.send(body);
+    await this.send(body, url);
   }
 }
 

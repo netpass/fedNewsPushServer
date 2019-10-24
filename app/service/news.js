@@ -58,10 +58,16 @@ class NewsService extends Service {
         result = feedCardList;
       }
 
-      return result;
+      return {
+        success: result,
+        data: result,
+      };
 
     } catch (error) {
-      return error;
+      return {
+        success: false,
+        error,
+      };
     }
   }
 
@@ -70,9 +76,15 @@ class NewsService extends Service {
     const tasks = list.map(async item => await this.setFedNew(deepClone(item), site));
     try {
       await Promise.all(tasks);
-      return '成功';
+      return {
+        success: true,
+        data: '成功',
+      };
     } catch (error) {
-      return error;
+      return {
+        success: false,
+        error,
+      };
     }
   }
 
@@ -106,15 +118,18 @@ class NewsService extends Service {
     try {
       await ctx.model.FedNewsDay.create({
         createTime: dayjs().format('YYYY-MM-DD'),
-        // text,
-        // type,
-        // title,
         ...data,
       });
 
-      return '日报插入成功';
+      return {
+        success: true,
+        data: '日报插入成功',
+      };
     } catch (error) {
-      return error;
+      return {
+        success: false,
+        error,
+      };
     }
   }
 
@@ -129,9 +144,15 @@ class NewsService extends Service {
         type,
         title,
       });
-      return '周报插入成功';
+      return {
+        success: true,
+        data: '周报插入成功',
+      };
     } catch (error) {
-      return error;
+      return {
+        success: false,
+        error,
+      };
     }
   }
 }

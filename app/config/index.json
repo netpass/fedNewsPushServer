@@ -1,14 +1,6 @@
 {
   "dingTalkConf": {
-    "dingtalkUrl": "https://oapi.dingtalk.com/robot/send?access_token=17951140a6f17d2ee10b0af05affd49a587d060ea693029dd2bcaeb7d1ac53b8"
-  },
-  "wxConf": {
-    "grant_type": "client_credential",
-    "appid": "wxbb54d7013077bb1a",
-    "secret": "dc52304b09c3bff43c8075b628272e60",
-    "createTime": 1564020979883,
-    "expires": 7200,
-    "token": "23_903VEVjaucbedJy7OJiph85kF8EWqjN8vAZ4gtFEU6Ny8JKmV9K4vVNL4Wlrvn_AnDKP6_Wgob0xC01TMDYpfdKRKSMzQCoS5KroWkkiA-aMq9vEjGxB0vikrcBfwQP0lgDVZIJyMKSUM4hdVESdAEAJSG"
+    "dingTalkUrls": ["https://oapi.dingtalk.com/robot/send?access_token=17951140a6f17d2ee10b0af05affd49a587d060ea693029dd2bcaeb7d1ac53b8", "https://oapi.dingtalk.com/robot/send?access_token=17951140a6f17d2ee10b0af05affd49a587d060ea693029dd2bcaeb7d1ac53b8"]
   },
   "githubConf": {
     "auth": "ec4bbcd6cbabce9d1842c01b3718cf11f16b805a"

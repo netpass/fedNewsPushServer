@@ -8,15 +8,15 @@ class TasksController extends Controller {
    */
   async getDataAndInsertDB() {
     const { ctx } = this;
-    try {
-      const feedCardList = await ctx.service.home.githubTrendingList();
+    const { success, data: feedCardList, error } = await ctx.service.home.githubTrendingList();
+    if (success) {
       const res = await ctx.service.news.insertFedNews(
         feedCardList || [],
         'github'
       );
-      ctx.body = { success: true, data: res };
-    } catch (error) {
-      ctx.body = { code: 0, success: false, error: error };
+      ctx.body = res;
+    } else {
+      ctx.body = { success: false, error: error };
     }
   }
 
@@ -27,9 +27,9 @@ class TasksController extends Controller {
   async getDataAndPush() {
     const { ctx } = this;
     try {
-      const isHoliday = await ctx.service.home.isHoliday();
+      const { data: isHoliday } = await ctx.service.home.isHoliday();
       if (!isHoliday) {
-        const result = await ctx.service.news.getFedNews({
+        const { data: result } = await ctx.service.news.getFedNews({
           offset: 0,
           pageSize: 5,
         });
