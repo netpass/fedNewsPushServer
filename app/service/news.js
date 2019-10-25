@@ -93,7 +93,6 @@ class NewsService extends Service {
     const fedNew = await ctx.model.FedNews.findOne({
       title: item.title,
     });
-    console.warn(fedNew);
     if (!fedNew) {
       return await ctx.model.FedNews.create({
         site,
@@ -106,7 +105,6 @@ class NewsService extends Service {
       const res = await ctx.model.FedNews.update({
         title: item.title,
       }, { ...item, hasPush: true });
-      console.warn(res);
       return res;
     }
     return Promise.resolve();
