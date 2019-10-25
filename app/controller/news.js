@@ -1,8 +1,5 @@
 'use strict';
 
-const dayjs = require('dayjs');
-const { deepClone } = require('../utils');
-
 const Controller = require('egg').Controller;
 
 class NewsController extends Controller {

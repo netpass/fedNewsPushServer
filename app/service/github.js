@@ -6,10 +6,8 @@ const Service = require('egg').Service;
 class GithubService extends Service {
   async initGithub() {
     const { ctx } = this;
-    const githubConf = await ctx.service.config.fetchConfigByName('githubConf');
-
     if (this.octokit) return this.octokit;
-
+    const githubConf = await ctx.service.config.fetchConfigByName('githubConf');
     const octokit = new Octokit({
       auth: githubConf.auth,
       // previews: ['jean-grey', 'symmetra'],
@@ -31,19 +29,31 @@ class GithubService extends Service {
 
   async createIssues(data) {
     const { ctx } = this;
-    await this.initGithub();
     try {
-      const result = await this.octokit.issues.create({
-        ...data,
+      await this.initGithub();
+
+      const { repo, ...other } = data;
+      const createIssuesTasks = repo.map(async (value) => {
+        return await this.octokit.issues.create({ ...other, repo: value });
       });
 
-      ctx.status = result.status;
+      await Promise.all(createIssuesTasks);
       ctx.body = {
         success: true,
-        data: result,
+        data: 'issues 创建成功',
       };
     } catch (error) {
-      // console.warn(error);
+      const markdownProps = {
+        title: 'issues 添加失败',
+        text: 'issues 添加失败',
+      };
+
+      if (error && error.status === 401) {
+        markdownProps.title = 'github token 失效';
+        markdownProps.text = 'github token 失效, [请前往查看](https://github.com/settings/tokens)';
+      }
+
+      await ctx.service.dingTalk.markdown(markdownProps);
       ctx.body = {
         success: false,
         error,

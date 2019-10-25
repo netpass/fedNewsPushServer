@@ -14,7 +14,6 @@ class NewsService extends Service {
 
     try {
       const fedNews = await ctx.model.FedNews.find({ hasPush: false }).limit(pageSize).skip(offset);
-
       const tasks = fedNews.map(async (item) => {
         return await this.setFedNew(deepClone({
           ...deepClone(item),
@@ -44,7 +43,7 @@ class NewsService extends Service {
 
         result = {
           title: `${dayjs().format('YYYY-MM-DD')}前端资讯日报`,
-          text: `## ${dayjs().format('YYYY-MM-DD')}前端资讯日报 \n\n ${markdownText}`,
+          text: `## ${dayjs().format('YYYY-MM-DD')}前端资讯日报 \n\n ${markdownText || '暂无消息'}`,
         };
       } else if (type === 'feedCard') {
         const feedCardList = fedNews.map((item) => {
@@ -59,7 +58,7 @@ class NewsService extends Service {
       }
 
       return {
-        success: result,
+        success: true,
         data: result,
       };
 
@@ -118,7 +117,7 @@ class NewsService extends Service {
         createTime: dayjs().format('YYYY-MM-DD'),
         ...data,
       });
-
+      console.warn(data, dayjs().format('YYYY-MM-DD'));
       return {
         success: true,
         data: '日报插入成功',
@@ -135,7 +134,7 @@ class NewsService extends Service {
     const { ctx } = this;
     try {
       const { effectDate, invalidDate, text, type, title } = data;
-      ctx.model.FedNewsDay.create({
+      ctx.model.FedNewsWeek.create({
         effectDate,
         invalidDate,
         text,

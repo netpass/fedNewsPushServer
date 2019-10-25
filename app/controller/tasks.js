@@ -33,10 +33,9 @@ class TasksController extends Controller {
           offset: 0,
           pageSize: 5,
         });
-
         await ctx.service.github.createIssues({
           owner: 'zhixiaoqiang',
-          repo: 'fed-news-push',
+          repo: [ 'fed-news-push', 'fedNewsPushServer' ],
           title: result.title,
           body: result.text,
           labels: [ '日报' ],
