@@ -8,7 +8,7 @@ class TasksController extends Controller {
    */
   async getDataAndInsertDB() {
     const { ctx } = this;
-    const { success, data: feedCardList, error } = await ctx.service.home.githubTrendingList();
+    const { success, data: feedCardList, error } = await ctx.service.home.githubTrendingList(ctx.params);
     if (success) {
       const res = await ctx.service.news.insertFedNews(
         feedCardList || [],
@@ -23,7 +23,6 @@ class TasksController extends Controller {
   /**
    * github trending list
    */
-
   async getDataAndPush() {
     const { ctx } = this;
     try {
@@ -62,6 +61,12 @@ class TasksController extends Controller {
       console.warn(error);
       ctx.body = { code: 0, success: false, error: error };
     }
+  }
+
+  async resetHasPushProp() {
+    const { ctx } = this;
+    const result = await ctx.service.news.resetHasPushProp();
+    ctx.body = result;
   }
 }
 

@@ -13,10 +13,7 @@
     "egg-cors": "^2.2.0",
     "egg-mongoose": "^3.2.0",
     "egg-scripts": "^2.11.0",
-    "egg-validate": "^2.0.2",
-    "puppeteer-core": "^1.19.0",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "egg-validate": "^2.0.2"
   },
   "devDependencies": {
     "autod": "^3.0.1",

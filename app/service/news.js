@@ -95,8 +95,8 @@ class NewsService extends Service {
     if (!fedNew) {
       return await ctx.model.FedNews.create({
         site,
-        hasPush: false,
         ...item,
+        hasPush: false,
       });
     }
 
@@ -107,7 +107,34 @@ class NewsService extends Service {
       return res;
     }
     return Promise.resolve();
+  }
 
+  async resetHasPushProp() {
+    const { ctx } = this;
+    try {
+      const fedNews = await ctx.model.FedNews.find({ hasPush: 1 });
+      const tasks = fedNews.map(async (item) => {
+        const curItem = deepClone(item);
+        return await ctx.model.FedNews.update({
+          title: curItem.title,
+        }, { ...curItem, hasPush: false });
+      });
+
+      await Promise.all(tasks);
+      return {
+        success: true,
+        data: {
+          statusText: '重置hasPush成功',
+          totalCount: fedNews.length,
+        },
+      };
+    } catch (error) {
+      console.warn(error);
+      return {
+        success: false,
+        error,
+      };
+    }
   }
 
   async insertFedNewsDay(data = {}) {

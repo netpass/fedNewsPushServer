@@ -11,16 +11,25 @@ see [egg docs][egg] for more detail.
 ### Development
 
 ```bash
-$ yarn
-$ yarn dev
-$ open http://localhost:7001/
+yarn
+yarn dev
+open http://localhost:7001/
 ```
 
 ### Deploy
 
 ```bash
-$ yarn start
-$ yarn stop
+yarn --production
+tar -zcvf ../release.tgz .
+
+# 将压缩文件拷贝到服务器
+
+yarn add egg-scripts
+# 启动
+yarn start
+
+# 停止
+yarn stop
 ```
 
 ### npm scripts

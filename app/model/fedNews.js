@@ -13,7 +13,7 @@ module.exports = (app) => {
     forkCount: { type: Number },
     username: { type: String },
     lang: { type: String },
-    hasPush: { type: Boolean },
+    hasPush: { type: Object },
   });
 
   return mongoose.model('fedNews', FedNewsSchema);

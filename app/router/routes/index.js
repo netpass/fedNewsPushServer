@@ -8,7 +8,7 @@ const tasks = require('./tasks');
 const test = require('./test');
 const config = require('./config');
 
-const routers = [
+module.exports = [
   dingTalk,
   github,
   home,
@@ -17,8 +17,3 @@ const routers = [
   test,
   config,
 ];
-
-/**
- * @param {Egg.Application} app - egg application
- */
-module.exports = routers;
