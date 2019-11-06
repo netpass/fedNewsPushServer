@@ -24,7 +24,6 @@ tar -zcvf ../release.tgz .
 
 # 将压缩文件拷贝到服务器
 
-yarn add egg-scripts
 # 启动
 yarn start
 
