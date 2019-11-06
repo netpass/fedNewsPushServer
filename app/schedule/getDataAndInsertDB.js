@@ -8,15 +8,10 @@ module.exports = {
   },
   async task(ctx) {
     console.warn('抓取数据');
-    await ctx.curl('http://fednews.com/tasks/getDataAndInsertDB', {
-      dataType: 'json',
-    });
+    await ctx.service.tasks.getDataAndInsertDB();
     console.warn('抓取数据');
-    await ctx.curl('http://fednews.com/tasks/getDataAndInsertDB', {
-      dataType: 'json',
-      data: {
-        period: 'month',
-      },
+    await ctx.service.tasks.getDataAndInsertDB({
+      period: 'month',
     });
   },
 };

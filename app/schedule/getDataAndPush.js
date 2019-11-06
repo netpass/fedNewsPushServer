@@ -6,8 +6,6 @@ module.exports = {
     type: 'all', // 指定所有的 worker 都需要执行
   },
   async task(ctx) {
-    await ctx.curl('http://fednews.com/tasks/getDataAndPush', {
-      dataType: 'json',
-    });
+    await ctx.service.tasks.getDataAndPush();
   },
 };
