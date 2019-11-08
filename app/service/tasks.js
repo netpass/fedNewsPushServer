@@ -28,29 +28,41 @@ class Tasks extends Service {
     try {
       const { data: isHoliday } = await ctx.service.home.isHoliday();
       if (!isHoliday) {
-        const { data: result } = await ctx.service.news.getFedNews({
-          offset: 0,
-          pageSize: 5,
-          ...data,
-        });
+
+        let finalResult = '';
+
+        const { data: chenBinReadmeResult } = await ctx.service.crawlerGithub.getChenBinReadme();
+
+        if (chenBinReadmeResult) {
+          finalResult = chenBinReadmeResult;
+        } else {
+          const { data: trendingResult } = await ctx.service.news.getFedNews({
+            offset: 0,
+            pageSize: 5,
+            ...data,
+          });
+          finalResult = trendingResult;
+        }
+
+
         await ctx.service.github.createIssues({
           owner: 'zhixiaoqiang',
           repo: [ 'fed-news-push', 'fedNewsPushServer' ],
-          title: result.title,
-          body: result.text,
+          title: finalResult.title,
+          body: finalResult.text,
           labels: [ '日报' ],
         });
 
         await ctx.service.news.insertFedNewsDay({
           type: 'markdown',
-          title: result.title,
-          text: result.text,
+          title: finalResult.title,
+          text: finalResult.text,
         });
 
         await ctx.service.dingTalk.markdown({
-          title: result.title,
+          title: finalResult.title,
           text: `${
-            result.text
+            finalResult.text
           } \n\n #### [查看更多](https://github.com/zhixiaoqiang/fed-news-push/issues)`,
         });
         ctx.body = { success: true, data: '发送成功' };

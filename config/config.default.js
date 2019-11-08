@@ -55,7 +55,7 @@ module.exports = (appInfo) => {
 
       request: {
         // 默认 request 超时时间
-        timeout: 10000,
+        timeout: 30000,
       },
 
       httpAgent: {

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@octokit/rest": "^16.28.6",
+    "cheerio": "^1.0.0-rc.3",
     "dayjs": "^1.8.15",
     "egg": "^2.15.1",
     "egg-cors": "^2.2.0",

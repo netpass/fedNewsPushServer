@@ -11,6 +11,12 @@ class TestController extends Controller {
       text: '发送成功',
     });
   }
+
+  async testGithub() {
+    const { ctx } = this;
+    const result = await ctx.service.crawlerGithub.getChenBinReadme();
+    ctx.body = result;
+  }
 }
 
 module.exports = TestController;
