@@ -63,7 +63,7 @@ class Tasks extends Service {
           title: finalResult.title,
           text: `${
             finalResult.text
-          } \n\n #### [查看更多](https://github.com/zhixiaoqiang/fed-news-push/issues)`,
+          } \n\n #### [查看更多](https://github.com/zhixiaoqiang/fedNewsPushServer/issues)`,
         });
         ctx.body = { success: true, data: '发送成功' };
       } else {

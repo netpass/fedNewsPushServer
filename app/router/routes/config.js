@@ -2,9 +2,9 @@
 
 module.exports = (app) => {
   const { router } = app;
-  router.get('/insertConfig', 'config.insertConfig');
-  router.get('/getConfigByName', 'config.getConfigByName');
-  router.get('/getConfigList', 'config.getConfigList');
-  router.get('/updateConfig', 'config.updateConfig');
-  router.get('/deleteConfig', 'config.deleteConfig');
+  router.get('/globalConfig/insertConfig', 'config.insertConfig');
+  router.get('/globalConfig/getConfigByName', 'config.getConfigByName');
+  router.get('/globalConfig/getConfigList', 'config.getConfigList');
+  router.get('/globalConfig/updateConfig', 'config.updateConfig');
+  router.get('/globalConfig/deleteConfig', 'config.deleteConfig');
 };
