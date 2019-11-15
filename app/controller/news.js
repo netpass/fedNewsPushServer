@@ -52,27 +52,6 @@ class NewsController extends Controller {
     const res = ctx.service.news.insertFedNewsWeek(ctx.params);
     ctx.body = res;
   }
-
-  async updateInfo() {
-    const { ctx } = this;
-    const { title } = ctx.params;
-    const fedNew = await ctx.model.FedNews.update({
-      title,
-    }, {
-      $set: {
-        title: `${title}1`,
-      },
-    }, {
-      new: true,
-    });
-
-    ctx.body = {
-      success: true,
-      data: {
-        fedNew,
-      },
-    };
-  }
 }
 
 module.exports = NewsController;
