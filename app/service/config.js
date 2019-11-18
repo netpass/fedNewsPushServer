@@ -6,7 +6,6 @@ const Utils = require('../utils');
 
 const configRule = {
   name: { type: 'string', required: true },
-  value: { required: false },
 };
 
 
@@ -28,6 +27,7 @@ class ConfigService extends Service {
         data: '添加成功',
       };
     } catch (error) {
+      console.warn(error);
       ctx.body = {
         success: false,
         error,

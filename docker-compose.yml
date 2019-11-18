@@ -1,11 +1,25 @@
-version: '3'
+version: '3.7'
 services:
-  fednewspush:
-    build: ./
-    ports:
-      - "6000:6000"
+  database:
+    image: mongo:latest
     restart: always
-    network_mode: host
-    environment:
-      - NODE_ENV
-    
+    volumes:
+      - ~/data/db:/data/db
+    networks:
+      - webapp-network
+    ports:
+      - 27017:27017
+  nodejs:
+    build: ./
+    # image: jzone1985/fednewspush-server
+    ports:
+      - 7001:7001
+    restart: always
+    depends_on:
+      - database
+    # network_mode: host
+    networks:
+      - webapp-network
+networks:
+  webapp-network:
+    driver: bridge

@@ -6,7 +6,7 @@ module.exports = (app) => {
 
   const ConfigSchema = new Schema({
     name: { type: String },
-    value: { type: JSON || String },
+    value: { type: Object },
   });
 
   return mongoose.model('config', ConfigSchema);

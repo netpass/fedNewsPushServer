@@ -39,7 +39,7 @@ module.exports = (appInfo) => {
 
     mongoose: {
       client: {
-        url: 'mongodb://127.0.0.1:27017/nazi',
+        url: 'mongodb://database:27017/nazi',
         options: {
           autoIndex: false, // Don't build indexes
           reconnectTries: 30, // Retry up to 30 times
