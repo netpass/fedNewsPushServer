@@ -9,7 +9,7 @@ COPY package.json yarn.lock /usr/src/node-app/fednewspush-server/
 
 RUN yarn --production
 
-COPY . /usr/src/node-app/fednewspush-server
+# COPY . /usr/src/node-app/fednewspush-server
 
 EXPOSE 7001
 CMD ["yarn", "docker:start"]

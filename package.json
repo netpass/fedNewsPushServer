@@ -31,7 +31,7 @@
   },
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-fedNewsPushServer",
-    "docker:start": "egg-scripts start --title=egg-server-fedNewsPushServer",
+    "docker:start": "EGG_SERVER_ENV=docker egg-scripts start --title=egg-server-fedNewsPushServer",
     "stop": "egg-scripts stop --title=egg-server-fedNewsPushServer",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
