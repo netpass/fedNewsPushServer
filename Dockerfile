@@ -1,8 +1,9 @@
 FROM node:12.13.0-alpine
 
-# 设置时区为北京时间
-RUN echo "Asia/Shanghai" > /etc/timezone
-RUN dpkg-reconfigure -f noninteractive tzdata
+# 设置时区为上海时间
+RUN apk add --no-cache tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo "Asia/Shanghai" > /etc/timezone \
+    && apk del tzdata
 
 # 创建app目录
 RUN rm -rf /usr/src/node-app/fednewspush-server

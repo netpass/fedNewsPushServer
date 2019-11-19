@@ -1,25 +1,25 @@
 version: '3.7'
 services:
-  database:
+  fednewspush_db:
     image: mongo:latest
     restart: always
     volumes:
       - ~/data/db:/data/db
     networks:
-      - webapp-network
+      - fednewspush-network
     ports:
       - 27017:27017
-  nodejs:
+  fednewspush_api:
     build: ./
     # image: jzone1985/fednewspush-server
     ports:
       - 7001:7001
     restart: always
     depends_on:
-      - database
+      - fednewspush_db
     # network_mode: host
     networks:
-      - webapp-network
+      - fednewspush-network
 networks:
-  webapp-network:
+  fednewspush-network:
     driver: bridge
