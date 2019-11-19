@@ -96,15 +96,25 @@ class ConfigService extends Service {
     const { ctx } = this;
     try {
       const { name, value } = ctx.params;
-      await ctx.model.Config.update({
-        name,
-      }, {
-        value,
-      });
-      ctx.body = {
-        success: true,
-        data: '更新成功',
-      };
+
+      const existName = await this.fetchConfigByName(name);
+
+      if (existName) {
+        await ctx.model.Config.update({
+          name,
+        }, {
+          value,
+        });
+        ctx.body = {
+          success: true,
+          data: '更新成功',
+        };
+      } else {
+        ctx.body = {
+          success: false,
+          error: '配置项不存在，请先添加配置项',
+        };
+      }
     } catch (error) {
       ctx.body = {
         success: false,

@@ -13,7 +13,8 @@ class NewsService extends Service {
     let result = '';
 
     try {
-      const fedNews = await ctx.model.FedNews.find({ hasPush: false }).limit(pageSize).skip(offset);
+      const fedNews = await ctx.model.FedNews.find({ hasPush: false }).sort({ starCount: -1 }).limit(pageSize)
+        .skip(offset);
       const tasks = fedNews.map(async (item) => {
         return await this.setFedNew(deepClone({
           ...deepClone(item),
@@ -144,7 +145,6 @@ class NewsService extends Service {
         createTime: dayjs().format('YYYY-MM-DD'),
         ...data,
       });
-      console.warn(data, dayjs().format('YYYY-MM-DD'));
       return {
         success: true,
         data: '日报插入成功',

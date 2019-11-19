@@ -7,7 +7,7 @@ class TestController extends Controller {
   async sendMarkdown() {
     const { ctx } = this;
     await ctx.service.dingTalk.markdown({
-      title: '多群测试',
+      title: '多群测试前端',
       text: '发送成功',
     });
   }

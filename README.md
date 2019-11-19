@@ -31,6 +31,12 @@ yarn start
 yarn stop
 ```
 
+### Deploy Docker
+
+```bash
+docker-compose up --build -d
+```
+
 ### npm scripts
 
 - Use `npm run lint` to check code style.
