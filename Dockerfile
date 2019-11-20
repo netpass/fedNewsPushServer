@@ -1,6 +1,8 @@
 FROM node:12.13.0-alpine
 
 # 设置时区为上海时间
+ENV TIME_ZONE=Asia/Shanghai
+
 RUN apk add --no-cache tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
     && apk del tzdata
