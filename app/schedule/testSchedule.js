@@ -10,7 +10,7 @@ module.exports = {
     },
   },
   async task(ctx) {
-    console.warn('抓取数据');
+    ctx.logger.info('抓取数据');
     // await ctx.service.dingTalk.markdown({
     //   title: '前端测试定时任务',
     //   text: '发送成功',
