@@ -9,14 +9,17 @@ class NewsService extends Service {
   async getAllNews() {
     const { ctx } = this;
     try {
-      const fedNews = await ctx.model.FedNews.sort({ starCount: -1 });
-
+      const fedNews = await ctx.model.FedNews.find();
       return {
         success: true,
-        data: fedNews,
+        data: {
+          list: fedNews,
+          totalCount: fedNews.length,
+        },
       };
 
     } catch (error) {
+      console.warn(error);
       return {
         success: false,
         error,
