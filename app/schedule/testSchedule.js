@@ -1,6 +1,6 @@
 'use strict';
 
-const dayjs = require('dayjs');
+// const dayjs = require('dayjs');
 
 module.exports = {
   schedule: {
@@ -14,9 +14,9 @@ module.exports = {
   },
   async task(ctx) {
     // ctx.logger.info('抓取数据');
-    await ctx.service.dingTalk.markdown({
-      title: '前端测试定时任务',
-      text: `前端测试定时任务${dayjs().format('YYYY-MM-DD HH:MM:ss')}`,
-    });
+    // await ctx.service.dingTalk.markdown({
+    //   title: '前端测试定时任务',
+    //   text: `前端测试定时任务${dayjs().format('YYYY-MM-DD HH:MM:ss')}`,
+    // });
   },
 };
