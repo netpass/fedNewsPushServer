@@ -21,6 +21,23 @@ class Tasks extends Service {
   }
 
   /**
+   * 获取需推送的消息插入数据库
+   */
+  async getJueJinDataAndInsertDB(data = {}) {
+    const { ctx } = this;
+    const { success, data: feedCardList, error } = await ctx.service.home.jueJinFedList(data);
+    if (success) {
+      const res = await ctx.service.news.insertFedNews(
+        feedCardList || [],
+        'github'
+      );
+      ctx.body = res;
+    } else {
+      ctx.body = { success: false, error: error };
+    }
+  }
+
+  /**
    * github trending list
    */
   async getDataAndPush(data = {}) {

@@ -11,6 +11,11 @@ class TasksController extends Controller {
     await ctx.service.tasks.getDataAndInsertDB(ctx.params);
   }
 
+  async getJueJinDataAndInsertDB() {
+    const { ctx } = this;
+    await ctx.service.tasks.getJueJinDataAndInsertDB(ctx.params);
+  }
+
   /**
    * github trending list
    */

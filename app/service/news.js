@@ -134,7 +134,7 @@ class NewsService extends Service {
   async resetHasPushProp() {
     const { ctx } = this;
     try {
-      const fedNews = await ctx.model.FedNews.find({ hasPush: 1 });
+      const fedNews = await ctx.model.FedNews.find({ hasPush: true });
       const tasks = fedNews.map(async (item) => {
         const curItem = deepClone(item);
         return await ctx.model.FedNews.update({
