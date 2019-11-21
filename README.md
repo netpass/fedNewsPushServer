@@ -34,6 +34,8 @@ yarn stop
 ### Deploy Docker
 
 ```bash
+git clone xxx
+
 docker-compose up --build -d
 ```
 
