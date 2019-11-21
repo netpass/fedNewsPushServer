@@ -14,7 +14,7 @@ class DingTalkService extends Service {
 
       let dingTalkUrls = '';
       if (!urls) {
-        const dingTalkConf = await ctx.service.config.fetchConfigByName('dingTalkConf');
+        const dingTalkConf = await ctx.service.config.fetchConfigByName('dingTalkConfTest');
         if (!dingTalkConf) throw 'dingTalkConf配置丢失，请检查';
         dingTalkUrls = dingTalkConf.dingTalkUrls;
       } else {
