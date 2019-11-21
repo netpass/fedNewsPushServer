@@ -6,6 +6,24 @@ const { limitText, deepClone } = require('../utils');
 const Service = require('egg').Service;
 
 class NewsService extends Service {
+  async getAllNews() {
+    const { ctx } = this;
+    try {
+      const fedNews = await ctx.model.FedNews.sort({ starCount: -1 });
+
+      return {
+        success: true,
+        data: fedNews,
+      };
+
+    } catch (error) {
+      return {
+        success: false,
+        error,
+      };
+    }
+  }
+
   async getFedNews(data) {
     const { ctx } = this;
     const { type = 'markdown', offset = 0, pageSize = 20 } = { ...ctx.params, ...data };
