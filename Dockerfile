@@ -14,7 +14,7 @@ RUN mkdir -p /usr/src/node-app/fednewspush-server
 WORKDIR /usr/src/node-app/fednewspush-server
 COPY package.json /usr/src/node-app/fednewspush-server/
 
-RUN yarn --production
+# RUN yarn --production
 
 COPY . /usr/src/node-app/fednewspush-server
 
