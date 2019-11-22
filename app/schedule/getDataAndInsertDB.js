@@ -11,9 +11,12 @@ module.exports = {
     },
   },
   async task(ctx) {
-    console.warn('抓取数据');
+    console.warn('抓取Trending week数据');
     await ctx.service.tasks.getDataAndInsertDB();
-    console.warn('抓取数据');
+    console.warn('抓取掘金数据');
+    await ctx.service.tasks.getJueJinDataAndInsertDB();
+
+    console.warn('抓取Trending month数据');
     await ctx.service.tasks.getDataAndInsertDB({
       period: 'month',
     });
