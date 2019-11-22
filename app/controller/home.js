@@ -14,7 +14,7 @@ class HomeController extends Controller {
     const { ctx } = this;
 
     const { date = new Date() } = ctx.params;
-    ctx.validate(isHolidayRule, ctx.params);
+    ctx.validate(isHolidayRule, { date });
 
     const res = await ctx.service.home.isHoliday(date);
     ctx.body = res;
