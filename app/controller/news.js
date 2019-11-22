@@ -36,7 +36,7 @@ class NewsController extends Controller {
       });
     }
     if (fedNew.starCount !== item.startCount) {
-      return await ctx.model.FedNews.update({
+      return await ctx.model.FedNews.updateOne({
         title: item.title,
       }, {
         ...item,

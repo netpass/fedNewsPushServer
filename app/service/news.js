@@ -123,7 +123,7 @@ class NewsService extends Service {
     }
 
     if ((deepClone(fedNew).starCount !== item.starCount) || (deepClone(fedNew).hasPush !== item.hasPush)) {
-      const res = await ctx.model.FedNews.update({
+      const res = await ctx.model.FedNews.updateOne({
         title: item.title,
       }, { ...item, hasPush: true });
       return res;
@@ -137,7 +137,7 @@ class NewsService extends Service {
       const fedNews = await ctx.model.FedNews.find({ hasPush: true });
       const tasks = fedNews.map(async (item) => {
         const curItem = deepClone(item);
-        return await ctx.model.FedNews.update({
+        return await ctx.model.FedNews.updateOne({
           title: curItem.title,
         }, { ...curItem, hasPush: false });
       });

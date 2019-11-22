@@ -100,7 +100,7 @@ class ConfigService extends Service {
       const existName = await this.fetchConfigByName(name);
 
       if (existName) {
-        await ctx.model.Config.update({
+        await ctx.model.Config.updateOne({
           name,
         }, {
           value,
