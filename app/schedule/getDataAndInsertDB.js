@@ -1,4 +1,5 @@
 'use strict';
+const dayjs = require('dayjs');
 
 module.exports = {
   schedule: {
@@ -11,12 +12,12 @@ module.exports = {
     },
   },
   async task(ctx) {
-    console.warn('抓取Trending week数据');
+    console.log(`抓取Trending week数据, ${dayjs().format('YYYY-MM-DD HH:MM:ss')}`);
     await ctx.service.tasks.getDataAndInsertDB();
-    console.warn('抓取掘金数据');
+    console.log(`抓取掘金数据, ${dayjs().format('YYYY-MM-DD HH:MM:ss')}`);
     await ctx.service.tasks.getJueJinDataAndInsertDB();
 
-    console.warn('抓取Trending month数据');
+    console.log(`抓取Trending month数据, ${dayjs().format('YYYY-MM-DD HH:MM:ss')}`);
     await ctx.service.tasks.getDataAndInsertDB({
       period: 'month',
     });

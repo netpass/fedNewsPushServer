@@ -1,4 +1,5 @@
 'use strict';
+const dayjs = require('dayjs');
 
 module.exports = {
   schedule: {
@@ -10,6 +11,8 @@ module.exports = {
     },
   },
   async task(ctx) {
+    console.log(`推送数据中, ${dayjs().format('YYYY-MM-DD HH:MM:ss')}`);
     await ctx.service.tasks.getDataAndPush();
+    console.log(`推送数据完成, ${dayjs().format('YYYY-MM-DD HH:MM:ss')}`);
   },
 };
