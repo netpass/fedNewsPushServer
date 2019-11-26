@@ -4,22 +4,22 @@ const Service = require('egg').Service;
 const dayjs = require('dayjs');
 
 const isHolidayRule = {
-  date: { type: 'date', required: false },
+  date: { type: 'string', required: false },
 };
 
 class HomeService extends Service {
   /**
    * 是否假期
    */
-  async isHoliday(date = new Date()) {
+  async isHoliday(date) {
     const { ctx } = this;
-
-    ctx.validate(isHolidayRule, ctx.params);
+    const curDate = dayjs(date || '').format('YYYYMMDD');
+    ctx.validate(isHolidayRule, { date: curDate, ...ctx.params });
     try {
       const result = await ctx.curl('http://api.goseek.cn/Tools/holiday', {
         gzip: true,
         dataType: 'json',
-        date: dayjs(date).format('YYYYMMDD'),
+        date: curDate,
       });
 
       ctx.status = result.status;

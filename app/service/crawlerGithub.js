@@ -13,7 +13,6 @@ class CrawlerGithub extends Service {
       });
 
       const curDate = dayjs().format('YYYY.MM.DD');
-
       let todayMarkdown = '';
 
       if (htmlResult && htmlResult.data) {
@@ -31,6 +30,7 @@ class CrawlerGithub extends Service {
               .join('\n\n');
           }
         });
+
         return {
           success: true,
           data: todayMarkdown ? {

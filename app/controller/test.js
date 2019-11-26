@@ -1,6 +1,7 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const dayjs = require('dayjs');
 
 class TestController extends Controller {
   // testMarkdown push
@@ -16,6 +17,17 @@ class TestController extends Controller {
     const { ctx } = this;
     const result = await ctx.service.crawlerGithub.getChenBinReadme();
     ctx.body = result;
+  }
+
+  async testTime() {
+    const { ctx } = this;
+    ctx.body = {
+      success: true,
+      data: {
+        dayjs: dayjs().format('YYYY.MM.DD HH:MM:ss'),
+        newDate: dayjs(new Date()).format('YYYY.MM.DD HH:MM:ss'),
+      },
+    };
   }
 }
 

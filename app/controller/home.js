@@ -2,10 +2,6 @@
 
 const Controller = require('egg').Controller;
 
-const isHolidayRule = {
-  date: { type: 'date', required: false },
-};
-
 class HomeController extends Controller {
   /**
    * 是否假期
@@ -13,8 +9,7 @@ class HomeController extends Controller {
   async isHoliday() {
     const { ctx } = this;
 
-    const { date = new Date() } = ctx.params;
-    ctx.validate(isHolidayRule, { date });
+    const { date } = ctx.params;
 
     const res = await ctx.service.home.isHoliday(date);
     ctx.body = res;
